@@ -1,7 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_semanas/app/components/charts/area_chart_widget.dart';
 import 'package:flutter_semanas/app/models/params_model.dart';
 import 'package:flutter_semanas/app/models/result_model.dart';
 import 'contrainst.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class InitController extends Disposable {
   void getYieldByMonth(ParamsModel investiment) {
@@ -131,6 +133,36 @@ class InitController extends Disposable {
     }
 
     var teste = resultados;
+  }
+
+  List<charts.Series<dynamic, num>> chartData({
+    required List<AreaChartData> money,
+    required List<AreaChartData> popupanca,
+    required List<AreaChartData> cdb,
+  }) {
+    return [
+      charts.Series<AreaChartData, int>(
+        id: 'Casteira',
+        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
+        domainFn: (AreaChartData balance, _) => balance.week,
+        measureFn: (AreaChartData balance, _) => balance.value,
+        data: AreaChartData.mockDinheiro,
+      ),
+      charts.Series<AreaChartData, int>(
+        id: 'Poupança',
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (AreaChartData balance, _) => balance.week,
+        measureFn: (AreaChartData balance, _) => balance.value,
+        data: AreaChartData.mockPoupanca,
+      ),
+      charts.Series<AreaChartData, int>(
+        id: 'CDB',
+        colorFn: (_, __) => charts.MaterialPalette.deepOrange.shadeDefault,
+        domainFn: (AreaChartData balance, _) => balance.week,
+        measureFn: (AreaChartData balance, _) => balance.value,
+        data: AreaChartData.mockCDB,
+      ),
+    ];
   }
 
   @override

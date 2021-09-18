@@ -28,6 +28,11 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter_modular: ^3.4.1+1
+  charts_flutter: 
+    git:
+      url: git@github.com:google/charts.git
+      path: charts_flutter
+  intl: ^0.17.0
   flutter:
     sdk: flutter
 

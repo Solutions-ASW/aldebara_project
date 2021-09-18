@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_semanas/app/components/charts/area_chart_widget.dart';
 import 'package:flutter_semanas/app/controllers/init_controller.dart';
 import 'package:flutter_semanas/app/models/params_model.dart';
 
@@ -22,17 +23,17 @@ class _InitViewState extends State<InitView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: GestureDetector(
-          onTap: () {
-            initController.getYieldByWeek();
-          },
-          child: SizedBox(
-            height: 100,
-            width: 200,
-            child: Text('Init'),
-          ),
-        ),
+      backgroundColor: const Color(0xFFf5f6fb),
+      body: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.all(16),
+            child: AreaChart(
+              initController.chartData(money: [], popupanca: [], cdb: []),
+              animate: true,
+            ),
+          )
+        ],
       ),
     );
   }
