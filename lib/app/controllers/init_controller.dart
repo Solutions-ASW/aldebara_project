@@ -38,7 +38,7 @@ class InitController extends Disposable {
     var teste = months;
   }
 
-  void getYieldByWeek() {
+  List<ResultModel> getYieldByWeek() {
     ParamsModel? investiment = ParamsModel(
       investimentPeriod: 13,
       investimentType: INVESTMENT.poupanca,
@@ -80,10 +80,10 @@ class InitController extends Disposable {
       count++;
     }
 
-    var teste = resultados;
+    return resultados;
   }
 
-  void getYieldByWeekProgressive() {
+  List<ResultModel> getYieldByWeekProgressive() {
     ParamsModel? investiment = ParamsModel(
       investimentPeriod: 13,
       investimentType: INVESTMENT.poupanca,
@@ -132,7 +132,7 @@ class InitController extends Disposable {
       count++;
     }
 
-    var teste = resultados;
+    return resultados;
   }
 
   List<charts.Series<dynamic, num>> chartData({
