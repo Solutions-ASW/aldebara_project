@@ -142,22 +142,22 @@ class InitController extends Disposable {
   }) {
     return [
       charts.Series<AreaChartData, int>(
-        id: 'Casteira',
-        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
+        id: 'Carteira',
+        colorFn: (_, __) => charts.Color.fromHex(code: "#4CB050"),
         domainFn: (AreaChartData balance, _) => balance.week,
         measureFn: (AreaChartData balance, _) => balance.value,
         data: AreaChartData.mockDinheiro,
       ),
       charts.Series<AreaChartData, int>(
         id: 'Poupança',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        colorFn: (_, __) => charts.Color.fromHex(code: "#813DFB"),
         domainFn: (AreaChartData balance, _) => balance.week,
         measureFn: (AreaChartData balance, _) => balance.value,
         data: AreaChartData.mockPoupanca,
       ),
       charts.Series<AreaChartData, int>(
         id: 'CDB',
-        colorFn: (_, __) => charts.MaterialPalette.deepOrange.shadeDefault,
+        colorFn: (_, __) => charts.Color.fromHex(code: "#ED8562"),
         domainFn: (AreaChartData balance, _) => balance.week,
         measureFn: (AreaChartData balance, _) => balance.value,
         data: AreaChartData.mockCDB,

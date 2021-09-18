@@ -29,11 +29,11 @@ class AreaChart extends StatelessWidget {
         1,
         label: 'Semana 1',
       ),
-      const charts.TickSpec(
+      charts.TickSpec(
         52,
         label: 'Semana 52',
         style: charts.TextStyleSpec(
-          color: charts.Color(r: 0x4C, g: 0xAF, b: 0x50),
+          color: charts.Color.fromHex(code: "#4CB050"),
         ),
       ),
     ];
@@ -230,7 +230,7 @@ class AreaChartData {
     AreaChartData(49, 490.00),
     AreaChartData(50, 500.00),
     AreaChartData(51, 510.00),
-    AreaChartData(52, 5200.00),
+    AreaChartData(52, 520.00),
   ];
 
   static List<AreaChartData> mockPoupanca = [
@@ -285,7 +285,7 @@ class AreaChartData {
     AreaChartData(49, 498.54),
     AreaChartData(50, 508.92),
     AreaChartData(51, 519.29),
-    AreaChartData(52, 52900.66),
+    AreaChartData(52, 529.66),
   ];
 
   static List<AreaChartData> mockCDB = [
@@ -340,6 +340,6 @@ class AreaChartData {
     AreaChartData(49, 502.02),
     AreaChartData(50, 512.55),
     AreaChartData(51, 523.08),
-    AreaChartData(52, 533000.60),
+    AreaChartData(52, 533.60),
   ];
 }
