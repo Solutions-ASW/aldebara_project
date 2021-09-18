@@ -11,7 +11,7 @@ class InitController extends Disposable {
     investiment.investimentType = INVESTMENT.poupanca;
     investiment.investmentValue = 10;
 
-    double? porcent = getPorcent[investiment.investimentType] ?? 0;
+    double? percent = getPorcent[investiment.investimentType] ?? 0;
 
     Map<String, double> months = {
       "jan": 0,
@@ -31,7 +31,7 @@ class InitController extends Disposable {
     double acumulado = investiment.investmentValue ?? 0;
 
     months.forEach((key, value) {
-      acumulado += (porcent * acumulado);
+      acumulado += (percent * acumulado);
       months[key] = acumulado;
     });
 
@@ -53,7 +53,7 @@ class InitController extends Disposable {
     double valorTotal = 0;
     double deposito = investiment.investmentValue ?? 0;
     double acumuladoSemana = 0;
-    double porcentagem = getPorcent[investiment.investimentType] ?? 0;
+    double percentagem = getPorcent[investiment.investimentType] ?? 0;
     double juros = 0;
 
     List<ResultModel> resultados = [];
@@ -75,7 +75,7 @@ class InitController extends Disposable {
           resultados[countWeek - 4].juros!;
 
       acumuladoSemana += cal;
-      juros = acumuladoSemana * porcentagem;
+      juros = acumuladoSemana * percentagem;
 
       count++;
     }
@@ -98,7 +98,7 @@ class InitController extends Disposable {
     double valorTotal = 0;
     double deposito = investiment.investmentValue ?? 0;
     double acumuladoSemana = 0;
-    double porcentagem = getPorcent[investiment.investimentType] ?? 0;
+    double percentagem = getPorcent[investiment.investimentType] ?? 0;
     double juros = 0;
 
     List<ResultModel> resultados = [];
@@ -123,7 +123,7 @@ class InitController extends Disposable {
               resultados[countWeek - 4].acumuladoSemanal!;
 
           acumuladoSemana = cal;
-          juros = acumuladoSemana * porcentagem;
+          juros = acumuladoSemana * percentagem;
         }
 
         deposito += 10;

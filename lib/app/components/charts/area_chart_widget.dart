@@ -72,34 +72,39 @@ class AreaChart extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
+            Container(
               padding: const EdgeInsets.all(8.0),
+              width: MediaQuery.of(context).size.width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: seriesList
                     .map(
-                      (s) => Column(
-                        children: [
-                          Text(
-                            s.id,
-                            style: const TextStyle(
-                              color: Colors.black54,
-                            ),
-                          ),
-                          Text(
-                            NumberFormat.simpleCurrency(
-                                    locale: "pt-BR", name: "\$")
-                                .format(
-                              (s.data.last as AreaChartData).value,
-                            ),
-                            style: TextStyle(
-                              fontSize: getAdaptiveText(context, 18.0),
-                              color: HexColor.fromHex(
-                                s.colorFn!(0).hexString,
+                      (s) => Flexible(
+                        child: Column(
+                          children: [
+                            Text(
+                              s.id,
+                              style: const TextStyle(
+                                color: Colors.black54,
                               ),
                             ),
-                          ),
-                        ],
+                            FittedBox(
+                              child: Text(
+                                NumberFormat.simpleCurrency(
+                                        locale: "pt-BR", name: "\$")
+                                    .format(
+                                  (s.data.last as AreaChartData).value,
+                                ),
+                                style: TextStyle(
+                                  fontSize: getAdaptiveText(context, 18.0),
+                                  color: HexColor.fromHex(
+                                    s.colorFn!(0).hexString,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     )
                     .toList(),
@@ -225,7 +230,7 @@ class AreaChartData {
     AreaChartData(49, 490.00),
     AreaChartData(50, 500.00),
     AreaChartData(51, 510.00),
-    AreaChartData(52, 520.00),
+    AreaChartData(52, 5200.00),
   ];
 
   static List<AreaChartData> mockPoupanca = [
@@ -280,7 +285,7 @@ class AreaChartData {
     AreaChartData(49, 498.54),
     AreaChartData(50, 508.92),
     AreaChartData(51, 519.29),
-    AreaChartData(52, 529.66),
+    AreaChartData(52, 52900.66),
   ];
 
   static List<AreaChartData> mockCDB = [
@@ -335,6 +340,6 @@ class AreaChartData {
     AreaChartData(49, 502.02),
     AreaChartData(50, 512.55),
     AreaChartData(51, 523.08),
-    AreaChartData(52, 533.60),
+    AreaChartData(52, 533000.60),
   ];
 }
