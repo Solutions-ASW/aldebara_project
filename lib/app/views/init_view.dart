@@ -45,20 +45,17 @@ class _InitViewState extends State<InitView> {
           child: const Icon(Icons.close),
         ),
         centerTitle: true,
-        title: const Text("moto nova"),
+        title: const Text("indicadores"),
       ),
       backgroundColor: const Color(0xFFf5f6fb),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(16),
-              child: AreaChart(
-                initController.chartData(money: [], popupanca: [], cdb: []),
-                animate: true,
-              ),
-            ),
-          ],
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Container(
+          margin: const EdgeInsets.all(16).copyWith(top: 0),
+          child: AreaChart(
+            initController.chartData(money: [], popupanca: [], cdb: []),
+            animate: true,
+          ),
         ),
       ),
     );

@@ -33,85 +33,139 @@ class AreaChart extends StatelessWidget {
         52,
         label: 'Semana 52',
         style: charts.TextStyleSpec(
+          fontFamily: "MavenPro",
           color: charts.Color.fromHex(code: "#4CB050"),
         ),
       ),
     ];
 
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: charts.LineChart(
-                seriesList,
-                defaultRenderer: charts.LineRendererConfig(
-                  includeArea: true,
-                  stacked: true,
-                ),
-                animate: animate,
-                defaultInteractions: true,
-                primaryMeasureAxis: const charts.NumericAxisSpec(
-                  renderSpec: charts.NoneRenderSpec(),
-                ),
-                // behaviors: [
-                //   charts.SeriesLegend(
-                //     position: charts.BehaviorPosition.bottom,
-                //     outsideJustification: charts.OutsideJustification.start,
-                //   ),
-                // ],
-                domainAxis: charts.NumericAxisSpec(
-                  tickProviderSpec:
-                      charts.StaticNumericTickProviderSpec(staticTicks),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            color: Colors.transparent,
+            elevation: 0,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 8.0,
+              ),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+                child: charts.LineChart(
+                  seriesList,
+                  defaultRenderer: charts.LineRendererConfig(
+                    includeArea: true,
+                    stacked: true,
+                  ),
+                  animate: animate,
+                  defaultInteractions: true,
+                  primaryMeasureAxis: const charts.NumericAxisSpec(
+                    renderSpec: charts.NoneRenderSpec(),
+                  ),
+                  // behaviors: [
+                  //   charts.SeriesLegend(
+                  //     position: charts.BehaviorPosition.bottom,
+                  //     outsideJustification: charts.OutsideJustification.start,
+                  //   ),
+                  // ],
+                  domainAxis: charts.NumericAxisSpec(
+                    tickProviderSpec:
+                        charts.StaticNumericTickProviderSpec(staticTicks),
+                  ),
                 ),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: seriesList
-                    .map(
-                      (s) => Flexible(
-                        child: Column(
-                          children: [
-                            Text(
-                              s.id,
-                              style: const TextStyle(
-                                color: Colors.black54,
-                              ),
-                            ),
-                            FittedBox(
-                              child: Text(
-                                NumberFormat.simpleCurrency(
-                                        locale: "pt-BR", name: "\$")
-                                    .format(
-                                  (s.data.last as AreaChartData).value,
-                                ),
-                                style: TextStyle(
-                                  fontSize: getAdaptiveText(context, 18.0),
-                                  color: HexColor.fromHex(
-                                    s.colorFn!(0).hexString,
+          ),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 24.0,
+                horizontal: 16.0,
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: seriesList
+                          .map(
+                            (s) => Flexible(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    s.id,
+                                    style: const TextStyle(
+                                      color: Colors.black54,
+                                    ),
                                   ),
-                                ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: FittedBox(
+                                      child: Text(
+                                        NumberFormat.simpleCurrency(
+                                                locale: "pt-BR", name: "\$")
+                                            .format(
+                                          (s.data.last as AreaChartData).value,
+                                        ),
+                                        style: TextStyle(
+                                          fontSize:
+                                              getAdaptiveText(context, 22.0),
+                                          color: HexColor.fromHex(
+                                            s.colorFn!(0).hexString,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                          )
+                          .toList(),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24.0),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Ver tabela detalhada",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    )
-                    .toList(),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          const Color(0xFF4CB050),
+                        ),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
