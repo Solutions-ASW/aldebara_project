@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -75,6 +77,7 @@ class _InitViewState extends State<InitView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(
+                          // ignore: prefer_const_literals_to_create_immutables
                           children: [
                             Text(
                               'Poupança:',
@@ -96,6 +99,7 @@ class _InitViewState extends State<InitView> {
                         ),
                         SizedBox(height: 12),
                         Row(
+                          // ignore: prefer_const_literals_to_create_immutables
                           children: [
                             Text(
                               'CDB:',

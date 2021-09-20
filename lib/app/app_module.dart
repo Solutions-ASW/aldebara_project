@@ -1,5 +1,4 @@
 // app_module.dart
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_semanas/app/controllers/init_controller.dart';
 import 'package:flutter_semanas/app/views/init_view.dart';

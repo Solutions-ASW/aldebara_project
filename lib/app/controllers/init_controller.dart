@@ -6,7 +6,8 @@ import 'contrainst.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class InitController extends Disposable {
-  void getYieldByMonth(ParamsModel investiment) {
+  List<ResultModel> getYieldByMonth(ParamsModel investiment) {
+    List<ResultModel> resultados = [];
     investiment.investimentPeriod = 12;
     investiment.investimentType = INVESTMENT.poupanca;
     investiment.investmentValue = 10;
@@ -35,17 +36,14 @@ class InitController extends Disposable {
       months[key] = acumulado;
     });
 
-    var teste = months;
+    return resultados;
   }
 
   List<ResultModel> getYieldByWeek(ParamsModel paramsModel) {
     ParamsModel? investiment = paramsModel;
-
-    Map<int, double> weeks = {};
     int maxCount = investiment.investimentPeriod ?? 0;
     int count = 1;
     int countWeek = 0;
-
     double valorTotal = 0;
     double deposito = investiment.investmentValue ?? 0;
     double acumuladoSemana = 0;
@@ -86,7 +84,6 @@ class InitController extends Disposable {
       investmentValue: 10,
     );
 
-    Map<int, double> weeks = {};
     int maxCount = investiment.investimentPeriod ?? 0;
     int count = 1;
     int countWeek = 0;

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, use_full_hex_values_for_flutter_colors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -59,6 +61,7 @@ class _TableWidgetState extends State<TableWidget> {
             ? BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
+                // ignore: prefer_const_literals_to_create_immutables
                 boxShadow: [
                   BoxShadow(
                     color: Color(0xFF9EA1A580),

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_collection_literals
+
 class ResultModel {
   int? semana;
   double? valorAtual;
@@ -24,13 +26,13 @@ class ResultModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['semana'] = this.semana;
-    data['valor_atual'] = this.valorAtual;
-    data['deposito'] = this.deposito;
-    data['acumulado_semanal'] = this.acumuladoSemanal;
-    data['juros'] = this.juros;
-    data['acumulado'] = this.acumulado;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['semana'] = semana;
+    data['valor_atual'] = valorAtual;
+    data['deposito'] = deposito;
+    data['acumulado_semanal'] = acumuladoSemanal;
+    data['juros'] = juros;
+    data['acumulado'] = acumulado;
     return data;
   }
 }
