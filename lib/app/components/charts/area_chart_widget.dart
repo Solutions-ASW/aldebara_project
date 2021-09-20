@@ -44,7 +44,6 @@ class AreaChart extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Card(
             shape: RoundedRectangleBorder(
