@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_semanas/app/components/charts/area_chart_widget.dart';
+import 'package:flutter_semanas/app/controllers/contrainst.dart';
 import 'package:flutter_semanas/app/controllers/init_controller.dart';
 import 'package:flutter_semanas/app/models/params_model.dart';
 
@@ -58,7 +59,23 @@ class _InitViewState extends State<InitView> {
             child: Column(
               children: [
                 AreaChart(
-                  initController.chartData(money: [], popupanca: [], cdb: []),
+                  initController.chartData(
+                    carteira: ParamsModel(
+                      investimentPeriod: 13,
+                      investimentType: INVESTMENT.carteira,
+                      investmentValue: 10,
+                    ),
+                    poupanca: ParamsModel(
+                      investimentPeriod: 13,
+                      investimentType: INVESTMENT.poupanca,
+                      investmentValue: 10,
+                    ),
+                    cdb: ParamsModel(
+                      investimentPeriod: 13,
+                      investimentType: INVESTMENT.cdi,
+                      investmentValue: 10,
+                    ),
+                  ),
                   animate: true,
                 ),
                 Card(
