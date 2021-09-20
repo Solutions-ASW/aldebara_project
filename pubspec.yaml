@@ -84,7 +84,6 @@ flutter:
     fonts:
       - asset: fonts/MavenPro-Medium.ttf
       - asset: fonts/MavenPro-Bold.ttf
-        weight: 700
   # fonts:
   #   - family: Schyler
   #     fonts:

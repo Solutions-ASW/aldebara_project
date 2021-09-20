@@ -1,6 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_semanas/app/components/table/table_widget.dart';
 import 'package:flutter_semanas/app/utils/color_utils.dart';
 import 'package:flutter_semanas/main.dart';
 import 'package:intl/intl.dart';
@@ -138,7 +139,19 @@ class AreaChart extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 24.0),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (BuildContext context) => Container(
+                            padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom,
+                            ),
+                            child: TableWidget(),
+                          ),
+                        );
+                      },
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(

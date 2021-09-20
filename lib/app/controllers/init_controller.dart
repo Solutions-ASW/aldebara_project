@@ -38,12 +38,8 @@ class InitController extends Disposable {
     var teste = months;
   }
 
-  List<ResultModel> getYieldByWeek() {
-    ParamsModel? investiment = ParamsModel(
-      investimentPeriod: 13,
-      investimentType: INVESTMENT.poupanca,
-      investmentValue: 10,
-    );
+  List<ResultModel> getYieldByWeek(ParamsModel paramsModel) {
+    ParamsModel? investiment = paramsModel;
 
     Map<int, double> weeks = {};
     int maxCount = investiment.investimentPeriod ?? 0;
