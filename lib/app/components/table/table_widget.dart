@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_semanas/app/controllers/contrainst.dart';
 import 'package:flutter_semanas/app/controllers/init_controller.dart';
-import 'package:flutter_semanas/app/models/params_model.dart';
 import 'package:flutter_semanas/app/models/result_model.dart';
 
 class TableWidget extends StatefulWidget {
@@ -26,21 +25,9 @@ class _TableWidgetState extends State<TableWidget> {
   void initState() {
     _tabController = PageController(initialPage: currentIndex);
     _tabList = [
-      _listComponent(initController.getYieldByWeek(ParamsModel(
-        investimentPeriod: 13,
-        investimentType: INVESTMENT.carteira,
-        investmentValue: 10,
-      ))),
-      _listComponent(initController.getYieldByWeek(ParamsModel(
-        investimentPeriod: 13,
-        investimentType: INVESTMENT.poupanca,
-        investmentValue: 10,
-      ))),
-      _listComponent(initController.getYieldByWeek(ParamsModel(
-        investimentPeriod: 13,
-        investimentType: INVESTMENT.cdi,
-        investmentValue: 10,
-      ))),
+      _listComponent(initController.getYield()),
+      _listComponent(initController.getYieldJuros(JUROS_POUPANCA)),
+      _listComponent(initController.getYieldJuros(JUROS_CDI)),
     ];
     super.initState();
   }

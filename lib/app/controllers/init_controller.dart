@@ -1,155 +1,96 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_semanas/app/components/charts/area_chart_widget.dart';
-import 'package:flutter_semanas/app/models/params_model.dart';
 import 'package:flutter_semanas/app/models/result_model.dart';
 import 'contrainst.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class InitController extends Disposable {
-  List<ResultModel> getYieldByMonth(ParamsModel investiment) {
-    List<ResultModel> resultados = [];
-    investiment.investimentPeriod = 12;
-    investiment.investimentType = INVESTMENT.poupanca;
-    investiment.investmentValue = 10;
+  static const platform = MethodChannel('mobills.com.br/aldebaran');
 
-    double? percent = getPorcent[investiment.investimentType] ?? 0;
+  double valor = 1;
+  bool progressivo = false;
 
-    Map<String, double> months = {
-      "jan": 0,
-      "fev": 0,
-      "mar": 0,
-      "abr": 0,
-      "mai": 0,
-      "jun": 0,
-      "jul": 0,
-      "ago": 0,
-      "set": 0,
-      "out": 0,
-      "nov": 0,
-      "dez": 0
+  List<ResultModel> getYield() {
+    List<ResultModel> resultado = [];
+
+    for (var i = 1; i <= 52; i++) {
+      var deposito = valor * (progressivo ? i : 1);
+      var ultimoAcumulado =
+          resultado.isNotEmpty ? resultado.last.acumulado ?? 0 : 0;
+      resultado.add(
+        ResultModel(
+          semana: i,
+          acumulado: ultimoAcumulado + deposito,
+          deposito: deposito,
+          juros: 0,
+        ),
+      );
+    }
+
+    return resultado;
+  }
+
+  List<ResultModel> getYieldJuros(double valJuros) {
+    List<ResultModel> resultado = [];
+
+    Map<int, double> acumuladoSemanal = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
     };
 
-    double acumulado = investiment.investmentValue ?? 0;
+    int semana = 1;
+    for (var i = 1; i <= 52; i++) {
+      var deposito = valor * (progressivo ? i : 1);
+      var valorSemana = acumuladoSemanal[semana] ?? 0;
+      var juros = valorSemana * valJuros;
+      var jurosSemana = valorSemana + juros.setPrecision(2);
+      var ultimoAcumulado =
+          resultado.isNotEmpty ? resultado.last.acumulado ?? 0 : 0;
+      resultado.add(
+        ResultModel(
+          semana: i,
+          acumuladoSemanal: jurosSemana + deposito,
+          acumulado: ultimoAcumulado + juros + deposito,
+          deposito: deposito,
+          juros: juros,
+        ),
+      );
 
-    months.forEach((key, value) {
-      acumulado += (percent * acumulado);
-      months[key] = acumulado;
-    });
+      acumuladoSemanal[semana] = jurosSemana + deposito;
 
-    return resultados;
-  }
-
-  List<ResultModel> getYieldByWeek(ParamsModel paramsModel) {
-    ParamsModel? investiment = paramsModel;
-    int maxCount = investiment.investimentPeriod ?? 0;
-    int count = 1;
-    int countWeek = 0;
-    double valorTotal = 0;
-    double deposito = investiment.investmentValue ?? 0;
-    double acumuladoSemana = 0;
-    double percentagem = getPorcent[investiment.investimentType] ?? 0;
-    double juros = 0;
-
-    List<ResultModel> resultados = [];
-
-    while (maxCount >= count) {
-      for (var i = 0; i < 4; i++) {
-        countWeek++;
-        ResultModel resultModel = ResultModel();
-        valorTotal += deposito + juros;
-        resultModel.semana = countWeek;
-        resultModel.acumulado = valorTotal;
-        resultModel.acumuladoSemanal = acumuladoSemana;
-        resultModel.juros = juros;
-        resultModel.deposito = deposito;
-
-        resultados.add(resultModel);
+      if (semana == 4) {
+        semana = 1;
+      } else {
+        semana += 1;
       }
-      double? cal = resultados[countWeek - 4].deposito! +
-          resultados[countWeek - 4].juros!;
-
-      acumuladoSemana += cal;
-      juros = acumuladoSemana * percentagem;
-
-      count++;
     }
 
-    return resultados;
+    return resultado;
   }
 
-  List<ResultModel> getYieldByWeekProgressive() {
-    ParamsModel? investiment = ParamsModel(
-      investimentPeriod: 13,
-      investimentType: INVESTMENT.poupanca,
-      investmentValue: 10,
-    );
-
-    int maxCount = investiment.investimentPeriod ?? 0;
-    int count = 1;
-    int countWeek = 0;
-
-    double valorTotal = 0;
-    double deposito = investiment.investmentValue ?? 0;
-    double acumuladoSemana = 0;
-    double percentagem = getPorcent[investiment.investimentType] ?? 0;
-    double juros = 0;
-
-    List<ResultModel> resultados = [];
-
-    while (maxCount >= count) {
-      for (var i = 0; i < 4; i++) {
-        countWeek++;
-
-        ResultModel resultModel = ResultModel();
-        valorTotal += deposito + juros;
-        resultModel.semana = countWeek;
-        resultModel.acumulado = valorTotal;
-        resultModel.acumuladoSemanal = acumuladoSemana;
-        resultModel.juros = juros;
-        resultModel.deposito = deposito;
-
-        resultados.add(resultModel);
-
-        if (countWeek > 3) {
-          double? cal = resultados[countWeek - 4].deposito! +
-              resultados[countWeek - 4].juros! +
-              resultados[countWeek - 4].acumuladoSemanal!;
-
-          acumuladoSemana = cal;
-          juros = acumuladoSemana * percentagem;
-        }
-
-        deposito += 10;
-      }
-
-      count++;
-    }
-
-    return resultados;
-  }
-
-  List<charts.Series<dynamic, num>> chartData({
-    ParamsModel? carteira,
-    ParamsModel? poupanca,
-    ParamsModel? cdb,
-  }) {
+  List<charts.Series<dynamic, num>> chartData() {
+    var carteira = getYield();
+    var poupanca = getYieldJuros(JUROS_POUPANCA);
+    var cdb = getYieldJuros(JUROS_CDI);
     return [
       charts.Series<AreaChartData, int>(
         id: 'Carteira',
         colorFn: (_, __) => charts.Color.fromHex(code: "#4CB050"),
         domainFn: (AreaChartData balance, _) => balance.week,
         measureFn: (AreaChartData balance, _) => balance.value,
-        data: getYieldByWeek(carteira!)
+        data: carteira
             .map<AreaChartData>((e) => AreaChartData(e.semana!, e.acumulado!))
             .toList(),
-        //AreaChartData.mockDinheiro,
       ),
       charts.Series<AreaChartData, int>(
         id: 'Poupança',
         colorFn: (_, __) => charts.Color.fromHex(code: "#813DFB"),
         domainFn: (AreaChartData balance, _) => balance.week,
         measureFn: (AreaChartData balance, _) => balance.value,
-        data: getYieldByWeek(poupanca!)
+        data: poupanca
             .map<AreaChartData>((e) => AreaChartData(e.semana!, e.acumulado!))
             .toList(),
       ),
@@ -158,13 +99,27 @@ class InitController extends Disposable {
         colorFn: (_, __) => charts.Color.fromHex(code: "#ED8562"),
         domainFn: (AreaChartData balance, _) => balance.week,
         measureFn: (AreaChartData balance, _) => balance.value,
-        data: getYieldByWeek(cdb!)
+        data: cdb
             .map<AreaChartData>((e) => AreaChartData(e.semana!, e.acumulado!))
             .toList(),
       ),
     ];
   }
 
+  Future<void> _getBatteryLevel() async {
+    String batteryLevel;
+    try {
+      final int result = await platform.invokeMethod('getBatteryLevel');
+      batteryLevel = 'Battery level at $result % .';
+    } on PlatformException catch (e) {
+      batteryLevel = "Failed to get battery level: '${e.message}'.";
+    }
+  }
+
   @override
   void dispose() {}
+}
+
+extension DoubleUtils on double {
+  double setPrecision(int n) => double.parse(toStringAsFixed(n));
 }

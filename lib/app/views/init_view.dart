@@ -6,7 +6,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_semanas/app/components/charts/area_chart_widget.dart';
 import 'package:flutter_semanas/app/controllers/contrainst.dart';
 import 'package:flutter_semanas/app/controllers/init_controller.dart';
-import 'package:flutter_semanas/app/models/params_model.dart';
 
 class InitView extends StatefulWidget {
   const InitView({Key? key}) : super(key: key);
@@ -20,7 +19,6 @@ class _InitViewState extends State<InitView> {
 
   @override
   void initState() {
-    initController.getYieldByMonth(ParamsModel());
     super.initState();
   }
 
@@ -59,23 +57,7 @@ class _InitViewState extends State<InitView> {
             child: Column(
               children: [
                 AreaChart(
-                  initController.chartData(
-                    carteira: ParamsModel(
-                      investimentPeriod: 13,
-                      investimentType: INVESTMENT.carteira,
-                      investmentValue: 10,
-                    ),
-                    poupanca: ParamsModel(
-                      investimentPeriod: 13,
-                      investimentType: INVESTMENT.poupanca,
-                      investmentValue: 10,
-                    ),
-                    cdb: ParamsModel(
-                      investimentPeriod: 13,
-                      investimentType: INVESTMENT.cdi,
-                      investmentValue: 10,
-                    ),
-                  ),
+                  initController.chartData(),
                   animate: true,
                 ),
                 Card(
@@ -105,13 +87,13 @@ class _InitViewState extends State<InitView> {
                               ),
                             ),
                             Text(
-                              '3,675% ao ano.',
+                              '4,375% ao ano.',
                               style: TextStyle(color: Color(0xFF777777)),
                             )
                           ],
                         ),
                         Text(
-                          'Rende 70% da taxa selic (3,675%).',
+                          'Rende 70% da taxa selic (4,375%).',
                           style: TextStyle(color: Color(0xFF777777)),
                         ),
                         SizedBox(height: 12),
@@ -127,13 +109,13 @@ class _InitViewState extends State<InitView> {
                               ),
                             ),
                             Text(
-                              '5,15% ao ano.',
+                              '6,15% ao ano.',
                               style: TextStyle(color: Color(0xFF777777)),
                             )
                           ],
                         ),
                         Text(
-                          'Rende 100% do CDI (5,15%).',
+                          'Rende 100% do CDI (6,15%).',
                           style: TextStyle(color: Color(0xFF777777)),
                         ),
                       ],
