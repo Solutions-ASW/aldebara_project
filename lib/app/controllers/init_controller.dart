@@ -106,14 +106,8 @@ class InitController extends Disposable {
     ];
   }
 
-  Future<void> _getBatteryLevel() async {
-    String batteryLevel;
-    try {
-      final int result = await platform.invokeMethod('getBatteryLevel');
-      batteryLevel = 'Battery level at $result % .';
-    } on PlatformException catch (e) {
-      batteryLevel = "Failed to get battery level: '${e.message}'.";
-    }
+  Future<void> setValue() async {
+    valor = await platform.invokeMethod('getValue');
   }
 
   @override
